@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body>
+    <script>
+        jsonData = {
+            "products": [
+                {
+                    "id": 1,
+                    "title": "Classic Eggs Benedict",
+                    "description": "Two poached eggs on toasted English muffins with ham and hollandaise sauce.",
+                    "properties": "Contains eggs, gluten, dairy",
+                    "image": "link_to_image_of_eggs_benedict",
+                    "weight": 250,
+                    "price": 12,
+                    "is_discount": false,
+                    "is_active": true,
+                    "category": ["breakfast"]
+                },
+                {
+                    "id": 2,
+                    "title": "Avocado Toast",
+                    "description": "Fresh avocado spread on whole grain toast, topped with cherry tomatoes and sesame seeds.",
+                    "properties": "Vegan, contains gluten",
+                    "image": "link_to_image_of_avocado_toast",
+                    "weight": 200,
+                    "price": 10,
+                    "is_discount": false,
+                    "is_active": true,
+                    "category": ["breakfast", "lunch"]
+                },
+                {
+                    "id": 3,
+                    "title": "Caesar Salad",
+                    "description": "Crisp romaine lettuce with Caesar dressing, croutons, and Parmesan cheese.",
+                    "properties": "Contains dairy, gluten",
+                    "image": "link_to_image_of_caesar_salad",
+                    "weight": 180,
+                    "price": 9,
+                    "is_discount": true,
+                    "is_active": true,
+                    "category": ["lunch"]
+                },
+                {
+                    "id": 4,
+                    "title": "Margherita Pizza",
+                    "description": "Classic pizza with fresh tomatoes, mozzarella, basil, and extra virgin olive oil.",
+                    "properties": "Contains gluten, dairy",
+                    "image": "link_to_image_of_margherita_pizza",
+                    "weight": 500,
+                    "price": 15,
+                    "is_discount": false,
+                    "is_active": true,
+                    "category": ["lunch", "dinner"]
+                },
+                {
+                    "id": 5,
+                    "title": "Beef Burger",
+                    "description": "Juicy beef patty with lettuce, tomato, cheese, and special sauce in a sesame bun.",
+                    "properties": "Contains gluten, dairy",
+                    "image": "link_to_image_of_beef_burger",
+                    "weight": 350,
+                    "price": 13,
+                    "is_discount": false,
+                    "is_active": true,
+                    "category": ["lunch", "dinner"]
+                },
+                {
+                    "id": 6,
+                    "title": "Spaghetti Carbonara",
+                    "description": "Spaghetti with creamy sauce, pancetta, Parmesan cheese, and black pepper.",
+                    "properties": "Contains gluten, eggs, dairy",
+                    "image": "link_to_image_of_spaghetti_carbonara",
+                    "weight": 400,
+                    "price": 14,
+                    "is_discount": false,
+                    "is_active": true,
+                    "category": ["lunch", "dinner"]
+                },
+                {
+                    "id": 7,
+                    "title": "Chicken Caesar Wrap",
+                    "description": "Grilled chicken, Caesar salad, and Parmesan cheese wrapped in a flour tortilla.",
+                    "properties": "Contains gluten, dairy",
+                    "image": "link_to_image_of_chicken_caesar_wrap",
+                    "weight": 300,
+                    "price": 11,
+                    "is_discount": true,
+                    "is_active": true,
+                    "category": ["lunch"]
+                },
+                {
+                    "id": 8,
+                    "title": "Veggie Bowl",
+                    "description": "A healthy mix of quinoa, roasted veggies, avocado, and a lemon-tahini dressing.",
+                    "properties": "Vegan, gluten-free",
+                    "image": "link_to_image_of_veggie_bowl",
+                    "weight": 350,
+                    "price": 12,
+                    "is_discount": false,
+                    "is_active": true,
+                    "category": ["lunch", "dinner"]
+                },
+                {
+                    "id": 9,
+                    "title": "Chocolate Lava Cake",
+                    "description": "Warm chocolate cake with a gooey center, served with vanilla ice cream.",
+                    "properties": "Contains gluten, dairy",
+                    "image": "link_to_image_of_chocolate_lava_cake",
+                    "weight": 200,
+                    "price": 8,
+                    "is_discount": false,
+                    "is_active": true,
+                    "category": ["dessert"]
+                },
+                {
+                    "id": 10,
+                    "title": "Mango Smoothie",
+                    "description": "Fresh mango blended with yogurt and a hint of honey.",
+                    "properties": "Gluten-free, contains dairy",
+                    "image": "link_to_image_of_mango_smoothie",
+                    "weight": 250,
+                    "price": 7,
+                    "is_discount": false,
+                    "is_active": true,
+                    "category": ["beverages", "breakfast"]
+                }
+            ],
+            "categories": [
+                "breakfast",
+                "lunch",
+                "dinner",
+                "dessert",
+                "beverages"
+            ]
+        }
+        
+        function createTable(jsonData) {
+            let products = jsonData.products;
+
+            // Create a table element with Bootstrap classes
+            let table = document.createElement("table");
+            table.classList.add("table", "table-dark");
+            table.id = "products";
+
+            let thead = table.createTHead();
+            let tbody = document.createElement("tbody");
+            table.appendChild(tbody);
+
+            // Create the header row
+            let headerRow = thead.insertRow();
+            let headers = ["ID", "Title", "Description", "Properties", "Image", "Weight", "Price", "Discount", "Active", "Category"];
+            headers.forEach((headerText, index) => {
+                let header = document.createElement("th");
+                header.setAttribute('scope', 'col');
+                if(index === 0) { // Add scope="row" for the first column in tbody
+                    header.setAttribute('scope', 'row');
+                }
+                let textNode = document.createTextNode(headerText);
+                header.appendChild(textNode);
+                headerRow.appendChild(header);
+            });
+
+            // Add rows for each product
+            products.forEach(product => {
+                let row = tbody.insertRow();
+
+                Object.values(product).forEach((text, index) => {
+                    let cell = row.insertCell();
+                    if(index === 0) { // Add scope="row" for the first column in tbody
+                        cell.setAttribute('scope', 'row');
+                    }
+                    let textNode = typeof text === 'object' ? document.createTextNode(text.join(", ")) : document.createTextNode(text);
+                    cell.appendChild(textNode);
+                });
+            });
+
+            document.body.appendChild(table);
+        }
+
+
+        createTable(jsonData);
+    </script> <!-- Link to your JavaScript file -->    
+
+    <button class="btn btn-warning py-2" id="toggleStyleButton" style="position: fixed; bottom: 20px; right: 20px; z-index: 1000;">Dark / Light</button>
+
+    <script>
+    function toggleTableStyle() {
+        let table = document.getElementById('products');
+        if (table.classList.contains('table-dark')) {
+            table.classList.remove('table-dark');
+        } else {
+            table.classList.add('table-dark');
+        }
+    }
+
+    document.getElementById('toggleStyleButton').addEventListener('click', toggleTableStyle);
+    </script>
+</body>
+</html>
